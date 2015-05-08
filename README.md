@@ -65,3 +65,17 @@ programmeter
 =======
 Usage:
 sudo ./programgauge logfile programm_to_measure
+
+
+Controller
+==========
+
+A command line tool for starting/stopping a measurement.
+
+Usage:
+
+    sudo ./controller [option]
+    [options] = start stop wh
+
+if an measurement is already running, and start is called, the last 
+measurement is stopped and a new one is started.

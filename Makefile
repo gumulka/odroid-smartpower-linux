@@ -1,4 +1,4 @@
-all: smartpower programgauge
+all: smartpower programgauge controller
 
 CC       ?= gcc
 CFLAGS   ?= -Wall -g -fpic
@@ -9,12 +9,15 @@ CXXFLAGS ?= -Wall -g -fpic -std=c++11
 LDFLAGS  ?= -Wall -g
 
 COBJS     = hid.o 
-CPPOBJS   = main.o smartgauge.o
+CPPOBJS   = main.o smartgauge.o 
 OBJS      = $(COBJS) $(CPPOBJS)
 LIBS_USB  = `pkg-config libusb-1.0 --libs` -lrt -lpthread
 LIBS      = $(LIBS_USB)
 
 smartpower: $(COBJS) $(CPPOBJS)
+	$(CXX) $(LDFLAGS) $^ $(LIBS_USB) -o $@
+
+controller: $(COBJS) controller.o
 	$(CXX) $(LDFLAGS) $^ $(LIBS_USB) -o $@
 
 programgauge: $(COBJS) programgauge.o smartgauge.o
